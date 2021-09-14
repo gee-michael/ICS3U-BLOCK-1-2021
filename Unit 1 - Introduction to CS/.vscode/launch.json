@@ -1,0 +1,147 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch hw10",
+            "request": "launch",
+            "mainClass": "week2.hw10",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch hw9",
+            "request": "launch",
+            "mainClass": "week2.hw9",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch hw8",
+            "request": "launch",
+            "mainClass": "week2.hw8",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch hw7",
+            "request": "launch",
+            "mainClass": "week2.hw7",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch hw6",
+            "request": "launch",
+            "mainClass": "week2.hw6",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch hw5",
+            "request": "launch",
+            "mainClass": "week2.hw5",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch hw4",
+            "request": "launch",
+            "mainClass": "week2.hw4",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch hw3",
+            "request": "launch",
+            "mainClass": "week2.hw3",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch hw2",
+            "request": "launch",
+            "mainClass": "week2.hw2",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch hw1",
+            "request": "launch",
+            "mainClass": "week2.hw1",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch ExampleEight",
+            "request": "launch",
+            "mainClass": "week2.ExampleEight",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch ExampleEight",
+            "request": "launch",
+            "mainClass": "week1.ExampleEight",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch ExampleFive",
+            "request": "launch",
+            "mainClass": "week1.ExampleFive",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch ExampleFour",
+            "request": "launch",
+            "mainClass": "week1.ExampleFour",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch ExampleOne",
+            "request": "launch",
+            "mainClass": "week1.ExampleOne",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch ExampleSeven",
+            "request": "launch",
+            "mainClass": "week1.ExampleSeven",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch ExampleSix",
+            "request": "launch",
+            "mainClass": "week1.ExampleSix",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch ExampleThree",
+            "request": "launch",
+            "mainClass": "week1.ExampleThree",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        },
+        {
+            "type": "java",
+            "name": "Launch ExampleTwo",
+            "request": "launch",
+            "mainClass": "week1.ExampleTwo",
+            "projectName": "ICS3U-BLOCK-1-2021_866e64ab"
+        }
+    ]
+}
