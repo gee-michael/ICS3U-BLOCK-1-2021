@@ -16,8 +16,8 @@ public class StudentExample {
         // we activate methods (functions) through the variable name ( [name].[function](); )
 
         samantha.displayName();
-        samantha.displayStudentNumber();
-        samantha.increaseGrade();
+        // samantha.displayStudentNumber();
+        // samantha.increaseGrade();
 
         samantha = null; // everything stored in samantha is now gone !
 
@@ -34,12 +34,17 @@ public class StudentExample {
         alan.displayAverage();
         alan.addTest(67);
         alan.displayAverage();
+        double avg = alan.getAverage();
+        System.out.println(alan.getName() + "'s average is " + avg + ".");
 
         // alan.numMarks = 7; don't have access to PRIVATE members
+
+        alan.displayName();
+        alan.displayName("Hello");
+
+        Student stefano = new Student("Stefano", "876273");
+        stefano.displayName();
+        stefano.displayGrade();
+
     }    
 }
-
-
-
-
-

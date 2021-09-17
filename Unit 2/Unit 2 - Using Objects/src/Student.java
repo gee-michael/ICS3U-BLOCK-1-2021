@@ -32,14 +32,36 @@ public class Student {
         this.average = 0;
     }
 
+    public Student(String name, String studentNumber){
+        this.name = name;
+        this.studentNumber = studentNumber;
+        this.grade = 9;
+        this.totalMarks = 0;
+        this.numMarks = 0;
+        this.average = 0;
+    }
+    
+
     /**
      * displayName, displayStudentNumber, increaseGrade, displayGrade
      * The methods (actions) in a class define its behaviour
      */
 
-    public void displayName() {
+    public void displayName() { 
         System.out.println(name);
     }
+
+    public void displayName(String greeting) {
+        System.out.println(greeting);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    /** ^ Method overloading ^
+     *  - methods with the same name but different arguments/parameters 
+     */
 
     /**
      *  A void method performs a task and does NOT return a value.
@@ -58,8 +80,12 @@ public class Student {
         System.out.println(grade);
     }
     
-    public void displayAverage(){
+    public void displayAverage() {
         System.out.println(average);
+    }
+
+    public double getAverage() {
+        return average;
     }
 
     public void addTest(int mark){
