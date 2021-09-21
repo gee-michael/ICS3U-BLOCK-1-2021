@@ -1,3 +1,4 @@
+package Week2;
 /**
  * A class is a blueprint for something that we can model and create variables to use in our code.
  * This code (class) defines what a student is.

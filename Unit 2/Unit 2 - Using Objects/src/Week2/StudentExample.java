@@ -1,3 +1,4 @@
+package Week2;
 public class StudentExample {
     public static void main (String[] args) {       
         Student shohei;
