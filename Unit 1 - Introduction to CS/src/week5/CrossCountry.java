@@ -28,10 +28,22 @@ public class CrossCountry {
         System.out.print("Please enter your finishing time: ");
         finish = in.nextLine();
 
-        splitTwo = subtractTime(mileTwo, mileOne);
-        splitThree = subtractTime(finish, mileTwo);
-        // display info
+        splitTwo = reTime(subtractTime(mileTwo, mileOne));
+        splitThree = reTime(subtractTime(finish, mileTwo));
         displayInfo(firstName, lastName, mileOne, splitTwo, splitThree, finish);
+    }
+
+    private static String reTime(String subtractTime) {
+        int mins = (int) (Double.parseDouble(subtractTime)) / 60;
+        int secs = (int) (Double.parseDouble(subtractTime)) - (60 * mins);
+        String mils = ("" + Double.parseDouble(subtractTime));
+        int index = mils.indexOf(".");
+        int newMils = (int) (Double.parseDouble(mils.substring(index + 1)) * 10);
+        String fixSecs = "";
+        if (secs == 0){
+            fixSecs = "0";
+        }
+        return "" + mins + ":" + secs + fixSecs + "." + newMils;
     }
 
     private static void displayInfo(String firstName, String lastName, String mileOne, String splitTwo, String splitThree, String finish) {
@@ -45,10 +57,7 @@ public class CrossCountry {
     private static String subtractTime(String mileTwo, String mileOne) {
         double time2Secs = convert(mileTwo);
         double time1Secs = convert(mileOne);
-
         return "" + getDifference(time2Secs, time1Secs);
-
-        // getDifference and then build a new Time
     }
 
     private static double getDifference(double time2Secs, double time1Secs) {
@@ -56,9 +65,9 @@ public class CrossCountry {
     }
 
     private static double convert(String time) {
-        int stop = time.indexOf(";");
+        int stop = time.indexOf(":");
         String min = time.substring(0, stop);
-        String sec = time.substring(stop);
-        return Integer.parseInt(min) * 60 + Double.parseDouble(sec);
+        String sec = time.substring(stop + 1);
+        return Math.round(((Integer.parseInt(min) * 60 + Double.parseDouble(sec)) * 100.0)) / 100.0;
     }
 }
