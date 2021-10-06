@@ -39,11 +39,13 @@ public class CrossCountry {
         String mils = ("" + Double.parseDouble(subtractTime));
         int index = mils.indexOf(".");
         int newMils = (int) (Double.parseDouble(mils.substring(index + 1)) * 10);
-        String fixSecs = "";
+        String fixSecs = "", fixSecs2 = "";
         if (secs == 0){
             fixSecs = "0";
+        } else if (secs <= 9){
+            fixSecs2 = "0";
         }
-        return "" + mins + ":" + secs + fixSecs + "." + newMils;
+        return "" + mins + ":" + fixSecs2 + secs + fixSecs + "." + newMils;
     }
 
     private static void displayInfo(String firstName, String lastName, String mileOne, String splitTwo, String splitThree, String finish) {
@@ -57,7 +59,7 @@ public class CrossCountry {
     private static String subtractTime(String mileTwo, String mileOne) {
         double time2Secs = convert(mileTwo);
         double time1Secs = convert(mileOne);
-        return "" + getDifference(time2Secs, time1Secs);
+        return "" + Math.round((getDifference(time2Secs, time1Secs)*100))/100.0;
     }
 
     private static double getDifference(double time2Secs, double time1Secs) {
@@ -68,6 +70,6 @@ public class CrossCountry {
         int stop = time.indexOf(":");
         String min = time.substring(0, stop);
         String sec = time.substring(stop + 1);
-        return Math.round(((Integer.parseInt(min) * 60 + Double.parseDouble(sec)) * 100.0)) / 100.0;
+        return Math.round((Integer.parseInt(min) * 60 + Double.parseDouble(sec)) * 100) / 100.0;
     }
 }
