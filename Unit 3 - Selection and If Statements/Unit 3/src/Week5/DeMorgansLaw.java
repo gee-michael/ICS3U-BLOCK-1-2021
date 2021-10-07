@@ -1,3 +1,5 @@
+package Week5;
+
 public class DeMorgansLaw {
     public static void main(String[] args){
         int x = 7;

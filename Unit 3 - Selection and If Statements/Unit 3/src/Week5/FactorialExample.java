@@ -1,3 +1,5 @@
+package Week5;
+
 public class FactorialExample {
     public static void main(String[] args){
         int result = factorial(7);
