@@ -2,7 +2,7 @@ package Week4;
 
 // THIS IS WRONG :/
 
-public class BVGPools {
+public class BayviewGlenPools {
     public static void main(String[] args) {
         final int l = 20; // length
         final int w = 8; // width
