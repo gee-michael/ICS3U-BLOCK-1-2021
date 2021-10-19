@@ -7,7 +7,7 @@ public class Hangman {
         Scanner in = new Scanner(System.in);
         Boolean playAgain = true;
         while (playAgain){
-            play("READY TO USE SURFACE CLEANER", in);
+            play("YGGDRASIL JAZZ", in);
             playAgain = playAgain(in);
         }
         in.close();

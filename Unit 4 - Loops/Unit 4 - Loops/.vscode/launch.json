@@ -1,0 +1,56 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch BlackJack",
+            "request": "launch",
+            "mainClass": "Week4.BlackJack",
+            "projectName": "Unit 4 - Loops_6605610b"
+        },
+        {
+            "type": "java",
+            "name": "Launch ForLoops",
+            "request": "launch",
+            "mainClass": "Week4.ForLoops",
+            "projectName": "Unit 4 - Loops_6605610b"
+        },
+        {
+            "type": "java",
+            "name": "Launch ProgrammingContest",
+            "request": "launch",
+            "mainClass": "Week4.ProgrammingContest",
+            "projectName": "Unit 4 - Loops_6605610b"
+        },
+        {
+            "type": "java",
+            "name": "Launch WhileLoopExamples",
+            "request": "launch",
+            "mainClass": "Week4.WhileLoopExamples",
+            "projectName": "Unit 4 - Loops_6605610b"
+        },
+        {
+            "type": "java",
+            "name": "Launch Hangman",
+            "request": "launch",
+            "mainClass": "Week7.Hangman",
+            "projectName": "Unit 4 - Loops_6605610b"
+        },
+        {
+            "type": "java",
+            "name": "Launch ThreeCardPoker",
+            "request": "launch",
+            "mainClass": "Week7.ThreeCardPoker",
+            "projectName": "Unit 4 - Loops_6605610b"
+        }
+    ]
+}

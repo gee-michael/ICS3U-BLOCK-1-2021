@@ -1,4 +1,4 @@
-package Week4;
+package Week4; // highest wallet - $22,992
 
 import java.util.Scanner;
 
