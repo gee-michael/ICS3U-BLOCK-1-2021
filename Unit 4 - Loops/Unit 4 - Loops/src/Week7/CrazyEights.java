@@ -92,12 +92,15 @@ public class CrazyEights {
     private static String addCard(String used) {
         String card = getFace() + getSuit();
         while (used.indexOf(card) >= 0 || CARD_LIST.indexOf(card) == -1) {
+            if (DECK.indexOf("8") == 0){
+                DECK = "";
+            }
             card = getFace() + getSuit();
         }
+        
         CARD_LIST = CARD_LIST.replace(card, "");
         return card;
     }
-
 
 //  Computer 1 - [  ] [  ] [  ] [  ] [  ]
 //  Computer 2 - [  ] [  ] [  ] [  ] [  ]
