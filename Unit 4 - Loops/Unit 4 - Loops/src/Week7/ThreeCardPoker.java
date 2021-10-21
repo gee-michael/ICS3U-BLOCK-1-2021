@@ -116,31 +116,24 @@ public class ThreeCardPoker {
     }
 
     private static boolean isPair(String cards) { // 2 cards same number
-        if (){
-            return true;
-        }
+        String card1 = cards.substring(0, cards.indexOf(" "));
+        String card2 = cards.substring(cards.indexOf(" ") + 1, cards.substring(cards.indexOf(" ") + 1).indexOf(" "));
+        String card3 = cards.substring(cards.substring(cards.indexOf(" ") + 1).indexOf(" ")); 
+
+        System.out.println(card1 + card2 + card3);
         return false;
+
     }
 
     private static boolean isTriplet(String cards) { // 3 cards same number
-        if (){
-            return true;
-        }
         return false;
     }
 
     private static boolean isStraight(String cards) { // 3 cards in row
-        if (){
-            return true;
-        }
         return false;
     }
 
     private static boolean isFlush(String cards) { // 3 cards in same suit
-
-        if (){
-            return true;
-        }
         return false;
     }
 
