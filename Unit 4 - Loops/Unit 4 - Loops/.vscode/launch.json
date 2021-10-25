@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch CrazyEights",
+            "request": "launch",
+            "mainClass": "Week7.CrazyEights",
+            "projectName": "Unit 4 - Loops_6605610b"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
