@@ -7,7 +7,7 @@ public class DiceGame {
         for (int i = 0; i < 1000; i++) {
             int numPairs = 0;
             for (int j = 0; j < 100; j++) {
-                die1.roll();
+                die1.roll(); 
                 die2.roll();
                 // System.out.println(die1.getTopSides() + " " + die2.getTopSides());
                 if (die1.equals(die2)) {

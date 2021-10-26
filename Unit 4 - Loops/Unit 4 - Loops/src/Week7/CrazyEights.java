@@ -21,6 +21,7 @@ public class CrazyEights {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
+
         String deck = "";
         String discard = "";
         String player = "";
@@ -31,33 +32,25 @@ public class CrazyEights {
         int c1Cards = 0;
         int c2Cards = 0;
 
-        int playerP = 0;
-        int com1P = 0;
-        int com2P = 0;
-
         boolean playAgain = true;
         if (playAgain) {
-            playHand(in, deck, discard, player, com1, com2, playerP, com1P, com2P, pCards, c1Cards, c2Cards);
+            playHand(in, deck, discard, player, com1, com2, pCards, c1Cards, c2Cards);
         }
         in.close();
     }
 
-    private static void playHand(Scanner in, String deck, String discard, String player, String com1, String com2,
-            int playerP, int com1P, int com2P, int pCards, int c1Cards, int c2Cards) {
+    private static void playHand(Scanner in, String deck, String discard, String player, String com1, String com2, int pCards, int c1Cards, int c2Cards) {
         String cardsUsed = "AS2S3S4S5S6S7S8S9S10SJSQSKSAC2C3C4C5C6C7C8C9C10CJCQCKCAD2D3D4D5D6D7D8D9D10DJDQDKDAH2H3H4H5H6H7H8H9H10HJHQHKH";
-        ;
+
         for (int i = 0; i < NUM_CARDS; i++) {
             String playerCard = addCard(player, deck, cardsUsed);
             player += playerCard + " ";
-            cardsUsed = cardsUsed.replace(playerCard, "");
             pCards++;
             String com1Card = addCard(com1, deck, cardsUsed);
             com1 += com1Card + " ";
-            cardsUsed = cardsUsed.replace(com1Card, "");
             c1Cards++;
             String com2Card = addCard(com2, deck, cardsUsed);
             com2 += com2Card + " ";
-            cardsUsed = cardsUsed.replace(com2Card, "");
             c2Cards++;
         }
 
@@ -74,12 +67,20 @@ public class CrazyEights {
         System.out.println("Discard: " + discard);
 
         discard = getTop(deck, discard) + " ";
-        showDeck(in, discard, player, com1, com2, playerP, com1P, com2P, pCards, c1Cards, c2Cards);
-        playRound(in, discard, player, com1, com2, playerP, com1P, com2P, pCards, c1Cards, c2Cards);
+        showDeck(in, discard, player, com1, com2, pCards, c1Cards, c2Cards);
+        playRound(in, deck, cardsUsed, discard, player, com1, com2, pCards, c1Cards, c2Cards);
     }
 
-    private static void showDeck(Scanner in, String discard, String player, String com1, String com2,
-            int playerP, int com1P, int com2P, int pCards, int c1Cards, int c2Cards) {
+    private static void showDeck(Scanner in, String discard, String player, String com1, String com2, int pCards, int c1Cards, int c2Cards) {
+
+        if (gameEnd(pCards, c1Cards, c2Cards)){
+            int playerP = getPoints(player, pCards);
+            int com1P = getPoints(com1, c1Cards);
+            int com2P = getPoints(com2, c2Cards);
+
+            printPoints(playerP, com1P, com2P);
+        }
+        
         System.out.print("Computer 1 hand: ");
         for (int i = 0; i < c1Cards; i++) {
             System.out.print("[XX] ");
@@ -94,13 +95,15 @@ public class CrazyEights {
         if (discard.substring(0, 2).equals("10")) {
             System.out.println("             ____   ____");
             System.out.println("            |\\%%/| |    |");
-            System.out.println("            |%><%| |" + discard.substring(0, 3) + "|");
-            System.out.println("            |/%%\\| |____|");
+            System.out.println("            |%><%| |" + discard.substring(0, 3) + " |");
+            System.out.println("            |/%%\\| |    |");
+            System.out.println("             ‾‾‾‾   ‾‾‾‾");
         } else {
             System.out.println("             ____   ____");
             System.out.println("            |\\%%/| |    |");
-            System.out.println("            |%><%| | " + discard.substring(0, 2) + "|");
-            System.out.println("            |/%%\\| |____|");
+            System.out.println("            |%><%| | " + discard.substring(0, 2) + " |");
+            System.out.println("            |/%%\\| |    |");
+            System.out.println("             ‾‾‾‾   ‾‾‾‾");
         }
         System.out.println("");
         String displayerHand = player.substring(0, player.length() - 1);
@@ -114,7 +117,22 @@ public class CrazyEights {
             }
             i++;
         }
-        System.out.println("Player's hand: [" + displayerHand + "]");
+        System.out.println("Player's hand: [" + displayerHand + "] [DRAW]");
+    }
+
+    private static void printPoints(int playerP, int com1P, int com2P){
+        System.out.println("Player Points: " + playerP);
+        System.out.println("Computer 1 Points: " + com1P);
+        System.out.println("Computer 2 Points: " + com2P);
+    }
+
+    private static int getPoints(String cards, int num) {
+
+        return 0;
+    }
+
+    private static boolean gameEnd(int pCards, int c1Cards, int c2Cards) {
+        return pCards == 0 || c1Cards == 0 || c2Cards == 0;
     }
 
     private static boolean gameOver(int playerP, int comp1P, int comp2P) {
@@ -123,10 +141,9 @@ public class CrazyEights {
         }
         return true;
     }
+    // if (canPlay(hand), getSuit(topCard, getRank, topCard && cards drawn < 5))
 
-    private static String playRound(Scanner in, String discard, String player, String com1, String com2, int playerP,
-            int com1P, int com2P, int pCards, int c1Cards, int c2Cards) {
-        while (!gameOver(playerP, com1P, com2P)) {
+    private static String playRound(Scanner in, String deck, String cardsUsed, String discard, String player, String com1, String com2, int pCards, int c1Cards, int c2Cards) {
             // String result = playRound(in, deck, discard); // "0-31-32"
             /*
              * playerP += Integer.parseInt(result.substring(0, result.indexOf("-"))); comp1P
@@ -136,29 +153,21 @@ public class CrazyEights {
              * 1)));
              */
             int turn = P_TURN;
-            if (playerP <= com1P && playerP <= com2P) {
-                turn = P_TURN;
-            } else if (com1P <= playerP && com1P <= com2P) {
-                turn = C1_TURN;
-            } else if (com2P <= playerP && com2P <= com1P) {
-                turn = C2_TURN;
-            }
-
+        while (!gameEnd(pCards, c1Cards, c2Cards)){
             if (turn == P_TURN) {
-                String playersCard = playerTurn(in, player, discard);
+                String playersCard = playerTurn(in, player, discard, deck, cardsUsed, pCards);
                 discard = "" + playersCard + " " + discard;
                 System.out.println(playersCard);
                 player = player.replace(playersCard + " ", "");
-                showDeck(in, discard, player, com1, com2, playerP, com1P, com2P, pCards, c1Cards, c2Cards);
-                turn = nextTurn(turn);
+                showDeck(in, discard, player, com1, com2, pCards, c1Cards, c2Cards);
+                //turn = nextTurn(turn);
             } else if (turn == C1_TURN) {
                 comp1Turn(com1, discard);
-                turn = nextTurn(turn);
+                //turn = nextTurn(turn);
             } else if (turn == C2_TURN) {
                 comp2Turn(com2, discard);
-                turn = nextTurn(turn);
+                //turn = nextTurn(turn);
             }
-            System.out.println(turn);
         }
         return "0-31-32";
     }
@@ -171,22 +180,26 @@ public class CrazyEights {
         return "";
     }
 
-    private static String playerTurn(Scanner in, String player, String discard) {
+    private static String playerTurn(Scanner in, String player, String discard, String deck, String cardsUsed, int pCards) {
         System.out.println("What card would you like to play?");
-        System.out.println(discard);
         String nextCard = "";
         boolean valid = false;
+        boolean drewCard = false;
         while (valid == false) {
             nextCard = in.nextLine().toUpperCase();
-            if (player.indexOf(nextCard) == -1) {
+            if (nextCard.equals("DRAW")){ 
+                String playerCard = drawCard(player, deck, discard, cardsUsed);
+                while (!canPlay(playerCard, discard)){
+                    playerCard = drawCard(player, deck, discard, cardsUsed);
+                    player += playerCard;
+                    pCards++;
+                }
+                nextCard = playerCard;
+                valid = true;
+            } else if (player.indexOf(nextCard) == -1) {
                 System.out.println("Error 402: Card not found.");
-            }
-            try {
-                if (player.indexOf(nextCard) >= 0 && (discard.substring(0, 1).equals(nextCard.substring(0, 1))
-                        || discard.substring(1, 2).equals(nextCard.substring(1, 2))
-                        || discard.substring(2, 3).equals(nextCard.substring(2, 3))
-                        || discard.substring(3, 4).equals(nextCard.substring(3, 4))
-                                && !discard.substring(3, 4).equals(" "))) {
+            } else { try {
+                if (player.indexOf(nextCard) >= 0 && canPlay(nextCard, discard) || drewCard) {
                     System.out.println("You played the " + nextCard + ".");
                     valid = true;
                 } else {
@@ -197,7 +210,28 @@ public class CrazyEights {
                 System.out.println("Please input a valid card to play.");
             }
         }
+    }
         return nextCard;
+    }
+
+    private static String drawCard(String player, String deck, String discard, String cardsUsed) {
+        String card = addCard(player, deck, cardsUsed);
+        while (!canPlay(card, discard)){
+            card = addCard(player, deck, cardsUsed);
+        }
+        System.out.println("You drew a " + card);
+        return card;
+    }
+
+    private static boolean canPlay(String card, String discard) {
+        card = card += " ";
+        return (discard.substring(0, 1).equals(card.substring(0, 1))
+        || discard.substring(1, 2).equals(card.substring(1, 2))
+        || discard.substring(2, 3).equals(card.substring(2, 3))
+        || discard.substring(1, 2).equals(card.substring(2, 3))
+        || discard.substring(2, 3).equals(card.substring(1, 2))
+        || discard.substring(3, 4).equals(card.substring(3, 4))
+                && !discard.substring(3, 4).equals(" "));
     }
 
     private static int nextTurn(int turn) {
@@ -213,19 +247,15 @@ public class CrazyEights {
 
     private static String getTop(String deck, String discard) {
         String top = deck.substring(0, deck.indexOf(" "));
-        discard += top;
-        return discard;
+        return discard += top;
     }
 
     private static String addCard(String used, String deck, String cardList) {
         String card = getFace() + getSuit();
-        while (used.indexOf(card) >= 0 || cardList.indexOf(card) == -1) {
-            if (deck.indexOf("8") == 0) {
-                deck = "";
-            }
+        if (deck.indexOf("8") == 0) {
+            deck = "";
             card = getFace() + getSuit();
         }
-        cardList = cardList.replace(card, "");
         return card;
     }
 
