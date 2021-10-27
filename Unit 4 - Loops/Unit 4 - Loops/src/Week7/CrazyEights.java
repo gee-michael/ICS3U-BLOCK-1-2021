@@ -155,10 +155,30 @@ public class CrazyEights {
             int turn = P_TURN;
         while (!gameEnd(pCards, c1Cards, c2Cards)){
             if (turn == P_TURN) {
-                String playersCard = playerTurn(in, player, discard, deck, cardsUsed, pCards);
-                discard = "" + playersCard + " " + discard;
-                System.out.println(playersCard);
-                player = player.replace(playersCard + " ", "");
+                boolean play = false;
+                for (int i = 0; i < player.length() - 3; i++) {
+                    if (!play && (canPlay(player.substring(i, i + 2), discard, cardsUsed)
+                            || canPlay(player.substring(i, i + 3), discard, cardsUsed))) {
+                        play = true;
+                    }
+                }
+                if (!play) {
+                    String card = drawCard(player, deck, discard, cardsUsed);
+                    player = player + card;
+                    pCards++;
+                    if (!canPlay(card, discard, cardsUsed)){
+                        card = drawCard(player, deck, discard, cardsUsed);
+                        player = player + card;
+                        pCards++;
+                    } else {
+                        play = true;
+                    }
+                } else {
+                    String playersCard = playerTurn(in, player, discard, deck, cardsUsed, pCards);
+                    discard = "" + playersCard + " " + discard;
+                    System.out.println(playersCard);
+                    player = player.replace(playersCard + " ", "");
+                }
                 showDeck(in, discard, player, com1, com2, pCards, c1Cards, c2Cards);
                 //turn = nextTurn(turn);
             } else if (turn == C1_TURN) {
@@ -187,51 +207,51 @@ public class CrazyEights {
         boolean drewCard = false;
         while (valid == false) {
             nextCard = in.nextLine().toUpperCase();
-            if (nextCard.equals("DRAW")){ 
-                String playerCard = drawCard(player, deck, discard, cardsUsed);
-                while (!canPlay(playerCard, discard)){
-                    playerCard = drawCard(player, deck, discard, cardsUsed);
-                    player += playerCard;
-                    pCards++;
-                }
-                nextCard = playerCard;
-                valid = true;
-            } else if (player.indexOf(nextCard) == -1) {
+            /**
+             * if (nextCard.equals("DRAW")){ String playerCard = drawCard(player, deck,
+             * discard, cardsUsed); while (!canPlay(playerCard, discard)){ playerCard =
+             * drawCard(player, deck, discard, cardsUsed); player += playerCard; pCards++; }
+             * nextCard = playerCard; valid = true; } else
+             */
+
+            if (player.indexOf(nextCard) == -1) {
                 System.out.println("Error 402: Card not found.");
-            } else { try {
-                if (player.indexOf(nextCard) >= 0 && canPlay(nextCard, discard) || drewCard) {
-                    System.out.println("You played the " + nextCard + ".");
-                    valid = true;
-                } else {
+            } else {
+                try {
+                    if (player.indexOf(nextCard) >= 0 && canPlay(nextCard, discard, cardsUsed) || drewCard) {
+                        System.out.println("You played the " + nextCard + ".");
+                        valid = true;
+                    } else {
+                        System.out.println("Error 401: Invalid card.");
+                    }
+                } catch (Exception ex) {
                     System.out.println("Error 401: Invalid card.");
+                    System.out.println("Please input a valid card to play.");
                 }
-            } catch (Exception ex) {
-                System.out.println("Error 401: Invalid card.");
-                System.out.println("Please input a valid card to play.");
             }
         }
-    }
         return nextCard;
     }
 
     private static String drawCard(String player, String deck, String discard, String cardsUsed) {
         String card = addCard(player, deck, cardsUsed);
-        while (!canPlay(card, discard)){
-            card = addCard(player, deck, cardsUsed);
-        }
+        card = addCard(player, deck, cardsUsed);
         System.out.println("You drew a " + card);
         return card;
     }
 
-    private static boolean canPlay(String card, String discard) {
-        card = card += " ";
-        return (discard.substring(0, 1).equals(card.substring(0, 1))
-        || discard.substring(1, 2).equals(card.substring(1, 2))
-        || discard.substring(2, 3).equals(card.substring(2, 3))
-        || discard.substring(1, 2).equals(card.substring(2, 3))
-        || discard.substring(2, 3).equals(card.substring(1, 2))
-        || discard.substring(3, 4).equals(card.substring(3, 4))
-                && !discard.substring(3, 4).equals(" "));
+    private static boolean canPlay(String card, String discard, String cardsUsed) {
+        card = card + " ";
+        for (int i = 0; i < card.length() - 2; i++){
+            if (card.substring(i, i + 1).equals(" ") || cardsUsed.indexOf(card) == -1){
+                return false;
+            }
+        }
+        return (discard.substring(0, 1).equals(card.substring(0, 1))     // if first chars match (e.g. 7H & 7D)
+                || discard.substring(1, 2).equals(card.substring(1, 2))  // if second chars match (e.g. KC & AC)
+                || discard.substring(0, 2).equals(card.substring(0, 2))  // if first 2 chars match (e.g. 10S & 10H)
+                || discard.substring(1, 2).equals(card.substring(2, 3))  // if second and third char match (2D & 10D)
+                || discard.substring(2, 3).equals(card.substring(1, 2))); // if third and second char match (10D & 2D)
     }
 
     private static int nextTurn(int turn) {
