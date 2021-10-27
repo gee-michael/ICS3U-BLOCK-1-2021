@@ -164,11 +164,11 @@ public class CrazyEights {
                 }
                 if (!play) {
                     String card = drawCard(player, deck, discard, cardsUsed);
-                    player = player + card;
+                    player = player + card + " ";
                     pCards++;
                     if (!canPlay(card, discard, cardsUsed)){
                         card = drawCard(player, deck, discard, cardsUsed);
-                        player = player + card;
+                        player = player + card + " ";
                         pCards++;
                     } else {
                         play = true;
