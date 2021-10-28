@@ -19,11 +19,12 @@ public class Crazy8s {
     private static final int C1_TURN = 1;
     private static final int C2_TURN = 2;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {     // MICHAEL IT IS GENERATING NEW GAMES OVER AND OVER AGAIN
         Scanner in = new Scanner(System.in);
         String player = "";
         String com1 = "";
         String com2 = "";
+        String topCard = "";
         String deck = "";
 
         int playerP = 0;
@@ -32,28 +33,34 @@ public class Crazy8s {
         int turn = P_TURN;
 
         boolean playAgain = true; // if the user wants to play again
-        if (playAgain){
-            player = makeHand(player); // give cards to each player
-            com1 = makeHand(com1);
-            com2 = makeHand(com2);
-            deck = getTop(); // generates top card
-            while (!gameOver(playerP, com1P, com2P)){ // if a player has >=100 points
-                if (gameActive(player, com1, com2)){
+        if (playAgain) {
+            while (!gameOver(playerP, com1P, com2P)) { // if a player has >=100 points
+                player = makeHand(player); // give cards to each player
+                com1 = makeHand(com1);
+                com2 = makeHand(com2);
+                topCard = getTop(); // generates top card
+                deck = topCard;
+                if (gameActive(player, com1, com2)) {
                     displayCards(player, com1, com2, deck);
-                    if (turn == P_TURN){
-                        player = playTurn(in, player, turn, deck);
-                    } else if (turn == C1_TURN){
-                        com1 = playTurn(in, com1, turn, deck);
+                    if (turn == P_TURN) {
+                        topCard = playTurn(in, player, turn, deck);
+                        deck = topCard + " " + deck; 
+                        player = player.replace(topCard + " ", "");
+                    } else if (turn == C1_TURN) {
+                        topCard = playTurn(in, com1, turn, deck);
+                        deck = topCard + " " + deck; 
+                        com1 = com1.replace(topCard + " ", "");
                     } else {
-                        com2 = playTurn(in, com2, turn, deck);
+                        topCard = playTurn(in, com2, turn, deck);
+                        deck = topCard + " " + deck; 
+                        com2 = com2.replace(topCard + " ", "");
                     }
                     turn = addTurn(turn);
                 }
 
-
                 playerP = calculateP(player);
                 com1P = calculateP(com1);
-                com2P = calculateP(com2);  
+                com2P = calculateP(com2);
             }
         }
         in.close();
@@ -61,55 +68,44 @@ public class Crazy8s {
 
     private static String playTurn(Scanner in, String hand, int turn, String deck) {
         boolean canPlay = false;
-        for (int i = 0; i < hand.length() - 3; i++){
+        String card = "";
+        for (int i = 0; i < hand.length() - 3; i++) {
             if (!canPlay && (validCard(hand.substring(i, i + 2), deck)) || validCard(hand.substring(i, i + 3), deck)) {
                 canPlay = true;
             }
         }
-        if (!canPlay){
+        if (!canPlay) {
             // pick up card until you can play
         } else {
-            String card = "";
-            if (turn != P_TURN){
+            if (turn != P_TURN) {
                 card = comTurn(hand, deck);
             } else {
                 card = playerTurn(in, hand, deck);
             }
-            deck = "" + card + " " + deck;           // HELP DECK won't change in MAIN AAAAAAA - michael at 11:08 PM
-            hand = hand.replace(card + " ", "");
         }
-        return hand;
+        return card;
     }
 
     private static String playerTurn(Scanner in, String hand, String deck) {
         System.out.println("What card would you like to play?");
         String nextCard = "";
         boolean valid = false;
-        //boolean drewCard = false;
         while (!valid){
             nextCard = in.nextLine().toUpperCase();
-            if (hand.indexOf(nextCard) > -1 && validCard(nextCard, ))
-        }
-         // working on recreating code. ignore errors lol
-
-            if (player.indexOf(nextCard) == -1) {
-                System.out.println("Error 402: Card not found.");
+            if (hand.indexOf(nextCard) == -1 && !validCard(nextCard, hand)){
+                System.out.println("Error: Invalid Card.");
             } else {
                 try {
-                    if (player.indexOf(nextCard) >= 0 && canPlay(nextCard, discard, cardsUsed) || drewCard) {
+                    if (hand.indexOf(nextCard) > -1 && validCard(nextCard, deck)) {
                         System.out.println("You played the " + nextCard + ".");
                         valid = true;
-                    } else {
-                        System.out.println("Error 401: Invalid card.");
                     }
-                } catch (Exception ex) {
-                    System.out.println("Error 401: Invalid card.");
+                } catch (Exception ex){
                     System.out.println("Please input a valid card to play.");
                 }
             }
         }
         return nextCard;
-        return null;
     }
 
     private static String comTurn(String hand, String deck) {
