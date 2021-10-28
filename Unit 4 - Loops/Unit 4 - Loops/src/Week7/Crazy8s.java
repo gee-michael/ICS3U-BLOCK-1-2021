@@ -19,11 +19,11 @@ public class Crazy8s {
     private static final int C1_TURN = 1;
     private static final int C2_TURN = 2;
 
-    public static void main(String[] args) {     // MICHAEL IT IS GENERATING NEW GAMES OVER AND OVER AGAIN
+    public static void main(String[] args) { // MICHAEL IT IS GENERATING NEW GAMES OVER AND OVER AGAIN
         Scanner in = new Scanner(System.in);
-        String player = "";
-        String com1 = "";
-        String com2 = "";
+        String player = " ";
+        String com1 = " ";
+        String com2 = " ";
         String topCard = "";
         String deck = "";
 
@@ -34,7 +34,7 @@ public class Crazy8s {
 
         boolean playAgain = true; // if the user wants to play again
         if (playAgain) {
-            while (!gameOver(playerP, com1P, com2P)) { // if a player has >=100 points
+            if (!gameOver(playerP, com1P, com2P)) { // if a player has >=100 points
                 player = makeHand(player); // give cards to each player
                 com1 = makeHand(com1);
                 com2 = makeHand(com2);
@@ -44,15 +44,15 @@ public class Crazy8s {
                     displayCards(player, com1, com2, deck);
                     if (turn == P_TURN) {
                         topCard = playTurn(in, player, turn, deck);
-                        deck = topCard + " " + deck; 
+                        deck = topCard + " " + deck;
                         player = player.replace(topCard + " ", "");
                     } else if (turn == C1_TURN) {
                         topCard = playTurn(in, com1, turn, deck);
-                        deck = topCard + " " + deck; 
+                        deck = topCard + " " + deck;
                         com1 = com1.replace(topCard + " ", "");
                     } else {
                         topCard = playTurn(in, com2, turn, deck);
-                        deck = topCard + " " + deck; 
+                        deck = topCard + " " + deck;
                         com2 = com2.replace(topCard + " ", "");
                     }
                     turn = addTurn(turn);
@@ -70,8 +70,9 @@ public class Crazy8s {
         boolean canPlay = false;
         String card = "";
         for (int i = 0; i < hand.length() - 3; i++) {
-            if (!canPlay && (validCard(hand.substring(i, i + 2), deck)) || validCard(hand.substring(i, i + 3), deck)) {
+            if (!canPlay && (validCard(hand.substring(i, i + 2), deck) || validCard(hand.substring(i, i + 3), deck))) {
                 canPlay = true;
+                i = hand.length() - 1;
             }
         }
         if (!canPlay) {
@@ -90,9 +91,9 @@ public class Crazy8s {
         System.out.println("What card would you like to play?");
         String nextCard = "";
         boolean valid = false;
-        while (!valid){
+        while (!valid) {
             nextCard = in.nextLine().toUpperCase();
-            if (hand.indexOf(nextCard) == -1 && !validCard(nextCard, hand)){
+            if (hand.indexOf(nextCard) == -1 && !validCard(nextCard, hand)) {
                 System.out.println("Error: Invalid Card.");
             } else {
                 try {
@@ -100,7 +101,7 @@ public class Crazy8s {
                         System.out.println("You played the " + nextCard + ".");
                         valid = true;
                     }
-                } catch (Exception ex){
+                } catch (Exception ex) {
                     System.out.println("Please input a valid card to play.");
                 }
             }
@@ -112,21 +113,21 @@ public class Crazy8s {
         return null;
     }
 
-    private static boolean validCard(String card, String deck) {
+    private static boolean validCard(String card, String deck) { // checks if card is valid to first card in deck
         card += " ";
-        /* check if card is in CARDS_USED, 
-        return (discard.substring(0, 1).equals(card.substring(0, 1))     // if first chars match (e.g. 7H & 7D)
-        || discard.substring(1, 2).equals(card.substring(1, 2))  // if second chars match (e.g. KC & AC)
-        || discard.substring(0, 2).equals(card.substring(0, 2))  // if first 2 chars match (e.g. 10S & 10H)
-        || discard.substring(1, 2).equals(card.substring(2, 3))  // if second and third char match (2D & 10D)
-        || discard.substring(2, 3).equals(card.substring(1, 2))); // if third and second char match (10D & 2D)
-        */
-        return false;
+        deck += " ";
+        return ((cardsUsed.indexOf(card.substring(0, 2)) > -1 // if a viable card (length 2)
+            || cardsUsed.indexOf(card.substring(0, 3)) > -1) // if a viable card (length 3)
+            && (deck.substring(0, 1).equals(card.substring(0, 1)) // if first chars match (e.g. 7H & 7D)
+            || deck.substring(1, 2).equals(card.substring(1, 2))  // if second chars match (e.g. KC & AC)
+            || deck.substring(0, 2).equals(card.substring(0, 2))  // if first two chars match (e.g. 10S & 10D)
+            || deck.substring(2, 3).equals(card.substring(1, 2))  // if second and third chars match (2D & 10)
+            || deck.substring(1, 2).equals(card.substring(2, 3)))); // other way around
     }
 
     private static int addTurn(int turn) { // changes turn
         turn++;
-        if (turn == 3){
+        if (turn == 3) {
             turn = 0;
         }
         return turn;
@@ -178,8 +179,8 @@ public class Crazy8s {
 
     private static int countCards(String hand) { // counts # of spaces
         int count = 0;
-        for (var i = 0; i < hand.length() - 1; i++){
-            if (hand.substring(i, i + 1).equals(" ")){
+        for (var i = 0; i < hand.length() - 1; i++) {
+            if (hand.substring(i, i + 1).equals(" ")) {
                 count++;
             }
         }
