@@ -43,7 +43,7 @@ public class Crazy8s {
                 if (gameActive(player, com1, com2)) {
                     displayCards(player, com1, com2, deck);
                     if (turn == P_TURN) {
-                        topCard = playTurn(in, player, turn, deck);
+                        topCard = playTurn(in, player, turn, deck); // returns card to play
                         deck = topCard + " " + deck;
                         player = player.replace(topCard + " ", "");
                     } else if (turn == C1_TURN) {
@@ -57,7 +57,6 @@ public class Crazy8s {
                     }
                     turn = addTurn(turn);
                 }
-
                 playerP = calculateP(player);
                 com1P = calculateP(com1);
                 com2P = calculateP(com2);
@@ -76,6 +75,8 @@ public class Crazy8s {
             }
         }
         if (!canPlay) {
+            System.out.println("You cannot play.");
+            card = getCard();
             // pick up card until you can play
         } else {
             if (turn != P_TURN) {
@@ -96,13 +97,11 @@ public class Crazy8s {
             if (hand.indexOf(nextCard) == -1 && !validCard(nextCard, hand)) {
                 System.out.println("Error: Invalid Card.");
             } else {
-                try {
-                    if (hand.indexOf(nextCard) > -1 && validCard(nextCard, deck)) {
-                        System.out.println("You played the " + nextCard + ".");
-                        valid = true;
-                    }
-                } catch (Exception ex) {
-                    System.out.println("Please input a valid card to play.");
+                if (hand.indexOf(nextCard) > -1 && validCard(nextCard, deck)) {
+                    System.out.println("You played the " + nextCard + ".");
+                    valid = true;
+                } else {
+                    System.out.println("Error: Invalid Card.");
                 }
             }
         }
