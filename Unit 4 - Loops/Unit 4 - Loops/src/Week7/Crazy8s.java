@@ -3,6 +3,7 @@ package Week7;
 import java.util.Scanner;
 
 public class Crazy8s {
+    
     private static final String cardsUsed = "AS2S3S4S5S6S7S8S9S10SJSQSKSAC2C3C4C5C6C7C8C9C10CJCQCKCAD2D3D4D5D6D7D8D9D10DJDQDKDAH2H3H4H5H6H7H8H9H10HJHQHKH";
     private static final String HEARTS = "H"; // four suits
     private static final String CLUBS = "C";
@@ -17,9 +18,8 @@ public class Crazy8s {
     private static final int NUM_CARDS = 5; // number of cards per hand
     private static final int P_TURN = 0; // whose turn it is
     private static final int C1_TURN = 1;
-    private static final int C2_TURN = 2;
 
-    public static void main(String[] args) { // MICHAEL IT IS GENERATING NEW GAMES OVER AND OVER AGAIN
+    public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         String player = " ";
         String com1 = " ";
@@ -33,6 +33,7 @@ public class Crazy8s {
         int turn = P_TURN;
 
         boolean playAgain = true; // if the user wants to play again
+        boolean gamePlaying = true; // if the game if currently playing
         if (playAgain) {
             if (!gameOver(playerP, com1P, com2P)) { // if a player has >=100 points
                 player = makeHand(player); // give cards to each player
@@ -40,20 +41,46 @@ public class Crazy8s {
                 com2 = makeHand(com2);
                 topCard = getTop(); // generates top card
                 deck = topCard;
-                if (gameActive(player, com1, com2)) {
-                    displayCards(player, com1, com2, deck);
+                while (gamePlaying) {
                     if (turn == P_TURN) {
+                        while(!canPlay(player, deck)){
+                            topCard = getCard();
+                            player += topCard + " ";
+                            System.out.println("You drew a " + topCard + ".");
+                        }
+                        displayCards(player, com1, com2, deck);
                         topCard = playTurn(in, player, turn, deck); // returns card to play
                         deck = topCard + " " + deck;
                         player = player.replace(topCard + " ", "");
+                        if (countCards(player) == 0){
+                            gamePlaying = gameActive(player, com1, com2);
+                        }
                     } else if (turn == C1_TURN) {
+                        while(!canPlay(com1, deck)){
+                            topCard = getCard();
+                            com1 += topCard + " ";
+                            System.out.println("Computer drew a " + topCard + ".");
+                        }
+                        displayCards(player, com1, com2, deck);
                         topCard = playTurn(in, com1, turn, deck);
                         deck = topCard + " " + deck;
                         com1 = com1.replace(topCard + " ", "");
+                        if (countCards(com1) == 0){
+                            gamePlaying = gameActive(player, com1, com2);
+                        }
                     } else {
+                        while(!canPlay(com2, deck)){
+                            topCard = getCard();
+                            com2 += topCard + " ";
+                            System.out.println("Computer drew a " + topCard + ".");
+                        }
+                        displayCards(player, com1, com2, deck);
                         topCard = playTurn(in, com2, turn, deck);
                         deck = topCard + " " + deck;
                         com2 = com2.replace(topCard + " ", "");
+                        if (countCards(com2) == 0){
+                            gamePlaying = gameActive(player, com1, com2);
+                        }
                     }
                     turn = addTurn(turn);
                 }
@@ -66,26 +93,22 @@ public class Crazy8s {
     }
 
     private static String playTurn(Scanner in, String hand, int turn, String deck) {
-        boolean canPlay = false;
         String card = "";
-        for (int i = 0; i < hand.length() - 3; i++) {
-            if (!canPlay && (validCard(hand.substring(i, i + 2), deck) || validCard(hand.substring(i, i + 3), deck))) {
-                canPlay = true;
-                i = hand.length() - 1;
-            }
-        }
-        if (!canPlay) {
-            System.out.println("You cannot play.");
-            card = getCard();
-            // pick up card until you can play
+        if (turn != P_TURN) {
+            card = comTurn(hand, deck);
         } else {
-            if (turn != P_TURN) {
-                card = comTurn(hand, deck);
-            } else {
-                card = playerTurn(in, hand, deck);
-            }
+            card = playerTurn(in, hand, deck);
         }
         return card;
+    }
+
+    private static boolean canPlay(String hand, String deck) { // checks if you can play any card
+        for (int i = 0; i < hand.length() - 3; i++) {
+            if (validCard(hand.substring(i, i + 2), deck) || validCard(hand.substring(i, i + 3), deck)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static String playerTurn(Scanner in, String hand, String deck) {
@@ -99,6 +122,7 @@ public class Crazy8s {
             } else {
                 if (hand.indexOf(nextCard) > -1 && validCard(nextCard, deck)) {
                     System.out.println("You played the " + nextCard + ".");
+                    System.out.println();
                     valid = true;
                 } else {
                     System.out.println("Error: Invalid Card.");
@@ -109,13 +133,32 @@ public class Crazy8s {
     }
 
     private static String comTurn(String hand, String deck) {
-        return null;
+        String nextCard = "";
+        String nextCard2 = "";
+        String result = "";
+        for (int i = 0; i < hand.length() - 3; i++){
+            nextCard = hand.substring(i, i + 2);
+            nextCard2 = hand.substring(i, i + 3);
+            if (cardsUsed.indexOf(nextCard) != -1){
+                if (validCard(nextCard, hand)){
+                    result = nextCard;
+                } else if (validCard(nextCard2, hand)){
+                    result = nextCard2;
+                }
+            }
+        }
+        System.out.println("Computer played the " + result + ".");
+        System.out.println();
+        return result;
     }
 
-    private static boolean validCard(String card, String deck) { // checks if card is valid to first card in deck
+    private static boolean validCard(String card, String deck) { // checks if card is valid to first card in deck. ERROR WITH A-K-Q-J
+        String temp = card;
         card += " ";
         deck += " ";
-        return ((cardsUsed.indexOf(card.substring(0, 2)) > -1 // if a viable card (length 2)
+        return (!card.substring(0, 1).equals("0") // if the card does not have first character "0"
+            && !temp.equals("10") // if the card does not just equal "10"
+            && (cardsUsed.indexOf(card.substring(0, 2)) > -1 // if a viable card (length 2)
             || cardsUsed.indexOf(card.substring(0, 3)) > -1) // if a viable card (length 3)
             && (deck.substring(0, 1).equals(card.substring(0, 1)) // if first chars match (e.g. 7H & 7D)
             || deck.substring(1, 2).equals(card.substring(1, 2))  // if second chars match (e.g. KC & AC)
@@ -137,6 +180,7 @@ public class Crazy8s {
     }
 
     private static void displayCards(String player, String com1, String com2, String deck) {
+        System.out.println();
         System.out.print("Computer 1 hand: ");
         for (int i = 0; i < countCards(com1); i++) {
             System.out.print("[XX] ");
@@ -173,7 +217,8 @@ public class Crazy8s {
             }
             i++;
         }
-        System.out.println("Player's hand: [" + displayerHand + "] [DRAW]");
+        System.out.println("Player's hand: [" + displayerHand + "]");
+        System.out.println();
     }
 
     private static int countCards(String hand) { // counts # of spaces
@@ -183,7 +228,7 @@ public class Crazy8s {
                 count++;
             }
         }
-        return count;
+        return count + 1;
     }
 
     private static int calculateP(String hand) { // to be made

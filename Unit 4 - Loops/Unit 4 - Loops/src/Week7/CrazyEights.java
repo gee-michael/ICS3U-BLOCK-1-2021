@@ -1,9 +1,9 @@
 package Week7;
 
-import java.util.Scanner;
+// import java.util.Scanner;
 
-public class CrazyEights {
-
+public class CrazyEights { // NOT GOOD DO NOT USE
+/*
     private static final String HEARTS = "H";
     private static final String CLUBS = "C";
     private static final String DIAMONDS = "D";
@@ -151,7 +151,7 @@ public class CrazyEights {
              * result.indexOf("-", result.indexOf("-") + 1))); comp2P +=
              * Integer.parseInt(result.substring(result.indexOf("-", result.indexOf("-") +
              * 1)));
-             */
+             
             int turn = P_TURN;
         while (!gameEnd(pCards, c1Cards, c2Cards)){
             if (turn == P_TURN) {
@@ -212,7 +212,7 @@ public class CrazyEights {
              * discard, cardsUsed); while (!canPlay(playerCard, discard)){ playerCard =
              * drawCard(player, deck, discard, cardsUsed); player += playerCard; pCards++; }
              * nextCard = playerCard; valid = true; } else
-             */
+             
 
             if (player.indexOf(nextCard) == -1) {
                 System.out.println("Error 402: Card not found.");
@@ -306,4 +306,5 @@ public class CrazyEights {
             return "" + face;
         }
     }
+    */
 }
