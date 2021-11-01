@@ -14,7 +14,7 @@ public class Crazy8s {
     private static final String QUEEN = "Q";
     private static final String JACK = "J";
 
-    private static final int NUM_CARDS = 1; // number of cards per hand
+    private static final int NUM_CARDS = 5; // number of cards per hand
     private static final int P_TURN = 0; // whose turn it is
     private static final int C1_TURN = 1; // don't need c2, can use 'else'
 
