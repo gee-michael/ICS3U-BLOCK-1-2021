@@ -15,6 +15,8 @@ public class Crazy8s {
     private static final String JACK = "J";
 
     private static final int NUM_CARDS = 5; // number of cards per hand
+    private static final int MAX_PICKUP = 5; // max cards to pick up
+    private static final int MAX_POINTS = 100;
     private static final int P_TURN = 0; // whose turn it is
     private static final int C1_TURN = 1; // don't need c2, can use 'else'
 
@@ -60,7 +62,7 @@ public class Crazy8s {
                             player += topCard + " ";
                             System.out.println("You drew a " + topCard + ".");
                         }
-                        if (cardsPickedUp != 5 && canPlay(player, deck)){
+                        if (cardsPickedUp != MAX_PICKUP && canPlay(player, deck)){
                             displayCards(player, com1, com2, deck); // prints UI
                             topCard = playTurn(in, player, com1, com2, turn, deck); // returns card to play
                             player = player.replace(topCard + " ", ""); // replaces played card with ""
@@ -83,7 +85,7 @@ public class Crazy8s {
                             com1 += topCard + " ";
                             System.out.println("Computer 1 drew a card.");
                         }
-                        if (cardsPickedUp != 5 && canPlay(com1, deck)){
+                        if (cardsPickedUp != MAX_PICKUP && canPlay(com1, deck)){
                             displayCards(player, com1, com2, deck);
                             topCard = playTurn(in, com1, com2, player, turn, deck);
                             com1 = com1.replace(topCard + " ", "");
@@ -106,7 +108,7 @@ public class Crazy8s {
                             com2 += topCard + " ";
                             System.out.println("Computer 2 drew a card.");
                         }
-                        if (cardsPickedUp != 5 && canPlay(com2, deck)){
+                        if (cardsPickedUp != MAX_PICKUP && canPlay(com2, deck)){
                             displayCards(player, com1, com2, deck);
                             topCard = playTurn(in, com2, com1, player, turn, deck);
                             com2 = com2.replace(topCard + " ", "");
@@ -424,7 +426,7 @@ public class Crazy8s {
     }
 
     private static boolean gameOver(int playerP, int com1P, int com2P) { // checks for >100 points
-        return (playerP >= 100 || com1P >= 100 || com2P >= 100);
+        return (playerP >= MAX_POINTS || com1P >= MAX_POINTS || com2P >= MAX_POINTS);
     }
 
     private static String getTop() { // gets top card (not 8)
