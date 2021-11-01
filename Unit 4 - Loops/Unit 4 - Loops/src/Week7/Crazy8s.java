@@ -131,12 +131,18 @@ public class Crazy8s {
             System.out.println(winner(playerP, com1P, com2P));
             System.out.println("------------------------------");
             System.out.println("What a game!");
-            System.out.println("Would you like to play again? [Y] / [N]");
-            String input = in.nextLine().toUpperCase();
-            if (input.equals("N") || input.equals("NO")){
-                playAgain = false;
-            } else if (!input.equals("Y") && !input.equals("YES")){
-                System.out.println("Error: Invalid response. Please enter Y or N.");
+            boolean valid = false;
+            while (!valid) {
+                System.out.println("Would you like to play again? [Y] / [N]");
+                String input = in.nextLine().toUpperCase();
+                if (input.equals("N") || input.equals("NO")){
+                    playAgain = false;
+                    valid = true;
+                } else if (!input.equals("Y") && !input.equals("YES")){
+                    System.out.println("Error: Invalid response. Please enter Y or N.");
+                } else {
+                    valid = true;
+                }
             }
         }
         in.close();
