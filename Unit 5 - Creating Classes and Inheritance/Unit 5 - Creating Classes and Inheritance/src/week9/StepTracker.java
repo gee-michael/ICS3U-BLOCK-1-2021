@@ -1,10 +1,10 @@
 package week9;
 
 public class StepTracker {
-    int days = 0;
-    int maxDays = 0;
-    int steps = 0;
-    int max;
+    private int days; 
+    private int maxDays; 
+    private int steps;
+    private int max;
 
     public StepTracker(int num) {
         max = num;

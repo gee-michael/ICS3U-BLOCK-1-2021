@@ -31,6 +31,6 @@ public class ShapeDriver {
         }
 
         System.out.println(b1.toString());
-        System.out.println(b2.toString());
+        System.out.println(b2.toString());      
     } 
 }
