@@ -10,20 +10,6 @@ public class PolyDriver {
         dog.chaseTail();
         Cat cat = newCat();
         cat.makeSound();
-
-          \  (_  / | |     \  |__) |__
-        .  \ __) \ | |   .  \ |  \ |
-                                          /\\
-                      /\\                /  \\
-             /\\     /  \\      /\\     / /\ \\
-        /\\ /  \\ /\\ /\ \\ /\\/  \\ /\\ /  \ \\
-       /  \\ /\ \\  \\  \ \\  \\/\ \\  \\    \ \\
-      ( () ))  ) ))) ))  ) ))) )) ) ))) ))    ) )) 
-       \  // \/ //  //  / //  //\/ //  //    / //
-        \// \  // \// \/ // \//\  // \// \  / //
-             \//     \  //      \//     \ \/ //
-                      \//                \  //
-                                          \//
         */
 
         Animal animal = new Cat();
@@ -31,5 +17,6 @@ public class PolyDriver {
         animal = new Dog();
         animal.makeSound();
         ((Dog)animal).chaseTail();
+        System.out.println(Beverage.getStatus());
     }
 }

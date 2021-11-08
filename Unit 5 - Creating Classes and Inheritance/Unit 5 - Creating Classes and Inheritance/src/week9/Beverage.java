@@ -8,4 +8,7 @@ public class Beverage {
     public static void setStatus(int s){
         status = s;
     }
+    public static int getStatus(){
+        return status;
+    }
 }
