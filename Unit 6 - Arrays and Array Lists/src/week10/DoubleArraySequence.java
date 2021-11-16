@@ -114,7 +114,6 @@ public class DoubleArraySequence {
             DoubleArraySequence arr = new DoubleArraySequence(this.getCapacity() * 2);
             System.arraycopy(data, 0, arr.data, 0, this.manyItems);
             data = arr.data;
-            manyItems++;
             currentIndex++;
         }
         for (int i = manyItems; i > currentIndex; i--){
@@ -226,6 +225,12 @@ public class DoubleArraySequence {
         if (minimumCapacity == Integer.MAX_VALUE)
             throw new OutOfMemoryError("Not enough memory! (ensureCapacity)");
         
+        if (minimumCapacity > this.getCapacity()){
+            DoubleArraySequence arr = new DoubleArraySequence(minimumCapacity);
+            System.arraycopy(data, 0, arr.data, 0, this.manyItems);
+            data = arr.data;
+            currentIndex++;
+        }
     }
 
     /**
