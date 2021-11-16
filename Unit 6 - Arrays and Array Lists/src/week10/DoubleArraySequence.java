@@ -111,10 +111,13 @@ public class DoubleArraySequence {
             throw new OutOfMemoryError("Not enough memory! (addAfter)");
 
         if (manyItems + 1 > data.length){
-            DoubleArraySequence arr = new DoubleArraySequence(this.data.length * 2);
-            System.arraycopy(this.data, 0, arr.data, 0, this.getCapacity());
+            DoubleArraySequence arr = new DoubleArraySequence(this.getCapacity() * 2);
+            System.arraycopy(data, 0, arr.data, 0, this.manyItems);
+            data = arr.data;
+            manyItems++;
+            currentIndex++;
         }
-            for (int i = manyItems; i > currentIndex; i--){
+        for (int i = manyItems; i > currentIndex; i--){
             data[i] = data[i - 1];
             currentIndex++;
         }
