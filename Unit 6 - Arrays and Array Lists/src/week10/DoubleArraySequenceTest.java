@@ -3,7 +3,7 @@ package week10;
 public class DoubleArraySequenceTest {
 
    /**
-    * @param args
+    * @param args I GOT TO 41!!! and then it broke :/
     */
    public static void main(String[] args) {
       int score = 0;

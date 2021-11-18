@@ -142,7 +142,23 @@ public class DoubleArraySequence {
      *       the sequence to fail with an arithmetic overflow.
      **/
     public void addBefore(double element) {
+        if (data.length + 1 > Integer.MAX_VALUE)
+            throw new OutOfMemoryError("Out of memory! (addBefore)");
 
+        DoubleArraySequence arr = new DoubleArraySequence(data.length);
+        if (manyItems + 1 >= data.length)
+            arr = new DoubleArraySequence(data.length * 2);
+
+        System.arraycopy(data, 0, arr.data, 0, currentIndex);
+        for (int i = 0; i < currentIndex; i++) {
+            arr.data[i] = data[i];
+        }
+        for (int i = currentIndex; i < manyItems; i++) {
+            arr.data[i] = data[i];
+        }
+        arr.data[currentIndex] = element;
+        data = arr.data;
+        manyItems++;
     }
 
     /**
@@ -161,7 +177,18 @@ public class DoubleArraySequence {
      *       an arithmetic overflow that will cause the sequence to fail.
      **/
     public void addAll(DoubleArraySequence addend) {
-
+        if (addend == null)
+            throw new NullPointerException("Null pointer exception! (addAll)");
+        if (data.length + addend.data.length >= Integer.MAX_VALUE)
+            throw new OutOfMemoryError("Out of memory! (addAll");
+        DoubleArraySequence arr = new DoubleArraySequence(data.length);
+        if (manyItems + addend.manyItems > data.length){
+            arr = new DoubleArraySequence(manyItems + addend.manyItems);
+        }
+        System.arraycopy(data, 0, arr.data, 0, manyItems);
+        System.arraycopy(addend.data, 0, arr.data, manyItems, addend.manyItems);
+        data = arr.data;
+        manyItems += addend.manyItems;
     }
 
     /**
