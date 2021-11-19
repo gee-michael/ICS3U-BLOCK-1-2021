@@ -149,16 +149,13 @@ public class DoubleArraySequence {
         if (manyItems + 1 >= data.length)
             arr = new DoubleArraySequence(data.length * 2);
 
-        System.arraycopy(data, 0, arr.data, 0, currentIndex);
-        for (int i = 0; i < currentIndex; i++) {
-            arr.data[i] = data[i];
-        }
-        for (int i = currentIndex; i < manyItems; i++) {
-            arr.data[i] = data[i];
-        }
-        arr.data[currentIndex] = element;
-        data = arr.data;
-        manyItems++;
+        if (isCurrent()){
+            System.arraycopy(data, 0, arr.data, 0, currentIndex);
+            System.arraycopy(data, currentIndex, arr.data, currentIndex + 1, manyItems - currentIndex);
+            arr.data[currentIndex] = element;
+            data = arr.data;
+            manyItems++;
+        }  
     }
 
     /**
@@ -181,6 +178,7 @@ public class DoubleArraySequence {
             throw new NullPointerException("Null pointer exception! (addAll)");
         if (data.length + addend.data.length >= Integer.MAX_VALUE)
             throw new OutOfMemoryError("Out of memory! (addAll");
+
         DoubleArraySequence arr = new DoubleArraySequence(data.length);
         if (manyItems + addend.manyItems > data.length){
             arr = new DoubleArraySequence(manyItems + addend.manyItems);

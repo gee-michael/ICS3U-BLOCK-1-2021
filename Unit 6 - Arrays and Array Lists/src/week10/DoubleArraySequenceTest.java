@@ -3,7 +3,7 @@ package week10;
 public class DoubleArraySequenceTest {
 
    /**
-    * @param args I GOT TO 41!!! and then it broke :/
+    * @param args I GOT TO 45!!! and then it broke :/
     */
    public static void main(String[] args) {
       int score = 0;
@@ -82,7 +82,7 @@ public class DoubleArraySequenceTest {
       d1.addBefore(7.0);
       score += test(d1, new double[] { 7.0, 1.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 1.0, 2.0, 3.0, 4.0, 5.0, 2.0, 6.0 }, 0,
             15, 24, 2);
-      d3.addBefore(7.0);
+      d3.addBefore(7.0); // START HERE MICHAEL
       score += test(d3, new double[] { 7.0 }, 0, 1, 5, 2);
       d3.addBefore(6.0);
       score += test(d3, new double[] { 6.0, 7.0 }, 0, 2, 5, 2);
