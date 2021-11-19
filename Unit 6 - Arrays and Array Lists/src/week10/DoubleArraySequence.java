@@ -142,11 +142,10 @@ public class DoubleArraySequence {
      *       the sequence to fail with an arithmetic overflow.
      **/
     public void addBefore(double element) {
-        if (data.length + 1 > Integer.MAX_VALUE)
-            throw new OutOfMemoryError("Out of memory! (addBefore)");
+        if (data.length + 1 > Integer.MAX_VALUE) throw new OutOfMemoryError("Out of memory! (addBefore)");
 
         DoubleArraySequence arr = new DoubleArraySequence(data.length);
-        if (manyItems + 1 >= data.length)
+        if (manyItems + 1 > data.length)
             arr = new DoubleArraySequence(data.length * 2);
 
         if (isCurrent()){
@@ -155,7 +154,12 @@ public class DoubleArraySequence {
             arr.data[currentIndex] = element;
             data = arr.data;
             manyItems++;
-        }  
+        } else {
+            System.arraycopy(data, 1, arr.data, 0, currentIndex);
+            arr.data[0] = element;
+            data = arr.data;
+            manyItems++;
+        }
     }
 
     /**
@@ -183,6 +187,7 @@ public class DoubleArraySequence {
         if (manyItems + addend.manyItems > data.length){
             arr = new DoubleArraySequence(manyItems + addend.manyItems);
         }
+
         System.arraycopy(data, 0, arr.data, 0, manyItems);
         System.arraycopy(addend.data, 0, arr.data, manyItems, addend.manyItems);
         data = arr.data;
@@ -223,6 +228,7 @@ public class DoubleArraySequence {
      * @note An attempt to create a sequence with a capacity beyond
      *       Integer.MAX_VALUE will cause an arithmetic overflow that will cause the
      *       sequence to fail.
+     * 
      **/
     public static DoubleArraySequence catenation(DoubleArraySequence s1, DoubleArraySequence s2) {
         if (s1 == null || s2 == null)
@@ -231,8 +237,10 @@ public class DoubleArraySequence {
             throw new OutOfMemoryError("Not enough memory. (catenation)");
 
         DoubleArraySequence arr = new DoubleArraySequence(s1.getCapacity() + s2.getCapacity());
-        System.arraycopy(s1, 0, arr, 0, arr.getCapacity());
-        System.arraycopy(s2, 0, arr, 0, arr.getCapacity());
+
+        System.arraycopy(s1.data, 0, arr.data, 0, s1.manyItems);
+        System.arraycopy(s2.data, 0, arr.data, s1.manyItems, s2.manyItems);
+        arr.currentIndex = arr.manyItems;
         return arr;
     }
 
@@ -312,7 +320,11 @@ public class DoubleArraySequence {
     public void removeCurrent() {
         if (!isCurrent())
             throw new IllegalStateException("No current element! (removeCurrent)");
-        currentIndex = data.length;
+        for (int i = currentIndex; i < data.length - 1; i++){
+            data[i] = data[i + 1];
+        }
+        manyItems--;
+        //currentIndex = manyItems;
     }
 
     /**
@@ -357,5 +369,4 @@ public class DoubleArraySequence {
     public void setCurrentIndex(int currentIndex) {
         this.currentIndex = currentIndex;
     }
-
 }
