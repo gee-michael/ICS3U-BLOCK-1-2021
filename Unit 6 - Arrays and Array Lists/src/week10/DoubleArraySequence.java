@@ -111,8 +111,8 @@ public class DoubleArraySequence {
             throw new OutOfMemoryError("Not enough memory! (addAfter)");
 
         if (manyItems + 1 > data.length){
-            DoubleArraySequence arr = new DoubleArraySequence(this.getCapacity() * 2);
-            System.arraycopy(data, 0, arr.data, 0, this.manyItems);
+            DoubleArraySequence arr = new DoubleArraySequence(data.length * 2);
+            System.arraycopy(data, 0, arr.data, 0, manyItems);
             data = arr.data;
             currentIndex++;
         }
@@ -155,10 +155,11 @@ public class DoubleArraySequence {
             data = arr.data;
             manyItems++;
         } else {
-            System.arraycopy(data, 1, arr.data, 0, currentIndex);
+            System.arraycopy(data, 0, arr.data, 1, manyItems);
             arr.data[0] = element;
             data = arr.data;
             manyItems++;
+            currentIndex = 0;
         }
     }
 
@@ -236,13 +237,14 @@ public class DoubleArraySequence {
         if (s1.getCapacity() + s2.getCapacity() >= Integer.MAX_VALUE)
             throw new OutOfMemoryError("Not enough memory. (catenation)");
 
-        DoubleArraySequence arr = new DoubleArraySequence(s1.getCapacity() + s2.getCapacity());
+        DoubleArraySequence arr = new DoubleArraySequence(s1.manyItems + s2.manyItems);
 
         System.arraycopy(s1.data, 0, arr.data, 0, s1.manyItems);
         System.arraycopy(s2.data, 0, arr.data, s1.manyItems, s2.manyItems);
+        arr.manyItems = s1.manyItems + s2.manyItems;
         arr.currentIndex = arr.manyItems;
         return arr;
-    }
+    } 
 
     /**
      * Change the current capacity of this sequence.
@@ -262,7 +264,7 @@ public class DoubleArraySequence {
             DoubleArraySequence arr = new DoubleArraySequence(minimumCapacity);
             System.arraycopy(data, 0, arr.data, 0, this.manyItems);
             data = arr.data;
-            currentIndex++;
+            //currentIndex++;
         }
     }
 

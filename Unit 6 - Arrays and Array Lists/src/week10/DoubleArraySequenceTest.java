@@ -3,7 +3,7 @@ package week10;
 public class DoubleArraySequenceTest {
 
    /**
-    * @param args I GOT TO 55!!! 
+    * @param args 
     */
    public static void main(String[] args) {
       int score = 0;
@@ -101,7 +101,7 @@ public class DoubleArraySequenceTest {
             16, 16, 16, 5);
       score += test(d4, new double[] { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0, 0.0 },
             16, 16, 25, 5);
-
+  
       try {
          d4.getCurrent();
       } catch (IllegalStateException ex) {
@@ -112,7 +112,7 @@ public class DoubleArraySequenceTest {
          d4.removeCurrent();
       } catch (IllegalStateException ex) {
          score += 2;
-      }
+      } 
 
       DoubleArraySequence d5 = new DoubleArraySequence();
 
