@@ -112,7 +112,7 @@ public class DoubleArraySequence {
 
         if (manyItems + 1 > data.length){
             DoubleArraySequence arr = new DoubleArraySequence(data.length * 2);
-            System.arraycopy(data, 0, arr.data, 0, manyItems);
+            System.arraycopy(data, 0, arr.data, 0, manyItems); // arraycopy copies one array into another
             data = arr.data;
             currentIndex++;
         }
