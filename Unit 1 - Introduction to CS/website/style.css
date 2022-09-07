@@ -1,0 +1,64 @@
+body {
+    background-color: white;
+    font-family: "Inter", sans-serif;
+    padding: 20px;
+}
+
+.top-panel {
+    width: 80%;
+    background: url(https://i.pinimg.com/564x/bf/ce/c3/bfcec38fe50dfed37302e2f522a8d5f8.jpg);
+    /* other image https://i.pinimg.com/564x/95/75/07/957507fa731368e10ed9467727d4b86f.jpg) */
+    background-position: 25% 75%;
+    background-repeat: repeat;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    max-width: 500px;
+    border-radius: 50px;
+    color: white;
+}
+
+.toph1 {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 60px;
+    font-weight: 700;
+}
+
+.topp {
+    margin-top: 0px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 200;
+}
+
+.established {
+    font-style: italic;
+}
+
+h2 {
+    margin-top: 50px;
+    font-size: 30px;
+}
+
+.marmotwords {
+    margin-top: -20px;
+    margin-bottom: 0px;
+    font-size: 30px;
+    font-weight: 200;
+}
+
+h1,
+h2,
+p {
+    text-align: center;
+}
+
+.marmot {
+    margin-top: 50px;
+    height: 120px; 
+    width: 120px; 
+    object-fit: cover;
+    object-position: 97.5% 0%;
+    margin-bottom: 0px;
+}
